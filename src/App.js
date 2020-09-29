@@ -48,6 +48,9 @@ function App() {
   const fetchData = async () => {
     const userResponse = await fetch(
       'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
+      {
+        mode: 'cors',
+      },
     )
     const userJson = await userResponse.json()
     // console.log(userJson)
@@ -57,6 +60,9 @@ function App() {
 
     const artistsResponse = await fetch(
       'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
+      {
+        mode: 'cors',
+      },
     )
     const artistsJson = await artistsResponse.json()
     // console.log(artistsJson)
