@@ -48,12 +48,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   releaseDate: {
+    color: '#e0e0e0',
     [theme.breakpoints.down('md')]: {
       fontSize: '0.75rem',
     },
-  },
-  releaseDate: {
-    color: '#e0e0e0',
   },
   cardButton: {
     backgroundColor: '#1DB954',

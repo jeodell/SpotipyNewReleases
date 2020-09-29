@@ -35,33 +35,37 @@ function App() {
       ? today.getFullYear() - 1
       : today.getFullYear() +
         '-' +
-        ('0' + (today.getMonth() - 2 === 0 ? 12 : today.getMonth() - 2)).slice(
-          -2,
-        ) +
+        ('0' + (today.getMonth() - 2 === 0 ? 12 : today.getMonth())).slice(-2) +
         '-' +
         ('0' + today.getDate()).slice(-2)
   const [filterDate, setFilterDate] = useState(currentFilterDate)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    fetchData()
+    fetchData().catch((err) => setError(true))
   }, [])
 
   const fetchData = async () => {
-    const userResponse = await fetch(
-      'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
-    )
+    const userResponse = await fetch('/api/get-user')
     const userJson = await userResponse.json()
     // console.log(userJson)
     setUser({
       name: userJson.display_name,
     })
 
-    const artistsResponse = await fetch(
-      'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
-    )
+    const artistsResponse = await fetch('/api/get-artists')
     const artistsJson = await artistsResponse.json()
     // console.log(artistsJson)
-    setArtists((artists) => [...artists, ...artistsJson.artists])
+    setArtists((artists) => [
+      ...artists,
+      ...artistsJson.artists.sort((a, b) => {
+        let nameA = a.name.toLowerCase()
+        let nameB = b.name.toLowerCase()
+        if (nameA < nameB) return -1
+        if (nameA > nameB) return 1
+        return 0
+      }),
+    ])
     setNumFollowed(numFollowed + artistsJson.artists.length)
   }
 
@@ -204,6 +208,8 @@ function App() {
             </Typography>
           </footer>
         </ThemeProvider>
+      ) : error ? (
+        <Fragment>Error.</Fragment>
       ) : (
         <Fragment>Loading...</Fragment>
       )}
