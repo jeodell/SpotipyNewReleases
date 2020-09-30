@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/SpotipyNewReleases/static/css/main.87ab6d64.chunk.css",
-    "main.js": "/SpotipyNewReleases/static/js/main.73fc6231.chunk.js",
-    "main.js.map": "/SpotipyNewReleases/static/js/main.73fc6231.chunk.js.map",
+    "main.js": "/SpotipyNewReleases/static/js/main.9f329111.chunk.js",
+    "main.js.map": "/SpotipyNewReleases/static/js/main.9f329111.chunk.js.map",
     "runtime-main.js": "/SpotipyNewReleases/static/js/runtime-main.14a57aa4.js",
     "runtime-main.js.map": "/SpotipyNewReleases/static/js/runtime-main.14a57aa4.js.map",
     "static/js/2.314ad267.chunk.js": "/SpotipyNewReleases/static/js/2.314ad267.chunk.js",
     "static/js/2.314ad267.chunk.js.map": "/SpotipyNewReleases/static/js/2.314ad267.chunk.js.map",
     "index.html": "/SpotipyNewReleases/index.html",
-    "precache-manifest.5d7acec3863efc3f0acb5b5a58322f02.js": "/SpotipyNewReleases/precache-manifest.5d7acec3863efc3f0acb5b5a58322f02.js",
+    "precache-manifest.c23cd215e345879172b0c70fc9be20cc.js": "/SpotipyNewReleases/precache-manifest.c23cd215e345879172b0c70fc9be20cc.js",
     "service-worker.js": "/SpotipyNewReleases/service-worker.js",
     "static/css/main.87ab6d64.chunk.css.map": "/SpotipyNewReleases/static/css/main.87ab6d64.chunk.css.map",
     "static/js/2.314ad267.chunk.js.LICENSE.txt": "/SpotipyNewReleases/static/js/2.314ad267.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.14a57aa4.js",
     "static/js/2.314ad267.chunk.js",
     "static/css/main.87ab6d64.chunk.css",
-    "static/js/main.73fc6231.chunk.js"
+    "static/js/main.9f329111.chunk.js"
   ]
 }
