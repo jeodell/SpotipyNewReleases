@@ -51,6 +51,7 @@ function App() {
       {
         headers: {
           'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
         },
       },
     )
@@ -65,6 +66,7 @@ function App() {
       {
         headers: {
           'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
         },
       },
     )
