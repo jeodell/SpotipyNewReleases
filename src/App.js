@@ -46,14 +46,18 @@ function App() {
   }, [])
 
   const fetchData = async () => {
-    const userResponse = await fetch('api/get-user')
+    const userResponse = await fetch(
+      'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
+    )
     const userJson = await userResponse.json()
     // console.log(userJson)
     setUser({
       name: userJson.display_name,
     })
 
-    const artistsResponse = await fetch('api/get-artists')
+    const artistsResponse = await fetch(
+      'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
+    )
     const artistsJson = await artistsResponse.json()
     // console.log(artistsJson)
     setArtists((artists) => [
