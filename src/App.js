@@ -46,13 +46,9 @@ function App() {
   }, [])
 
   const fetchData = async () => {
+    const proxyurl = 'https://cors-anywhere.herokuapp.com/'
     const userResponse = await fetch(
-      'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      },
+      proxyurl + 'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
     )
     const userJson = await userResponse.json()
     // console.log(userJson)
@@ -61,12 +57,8 @@ function App() {
     })
 
     const artistsResponse = await fetch(
-      'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      },
+      proxyurl +
+        'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
     )
     const artistsJson = await artistsResponse.json()
     // console.log(artistsJson)
