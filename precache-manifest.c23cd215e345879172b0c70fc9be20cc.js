@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1a8fb9b9e0f7b9a43ed2c11dd712b9d7",
+    "revision": "b5211a49b8297fb5c8637c6cf1f6ce7d",
     "url": "/SpotipyNewReleases/index.html"
   },
   {
-    "revision": "717e6b9a602cb85b57ea",
+    "revision": "ce77aa0a4e9766b50145",
     "url": "/SpotipyNewReleases/static/css/main.87ab6d64.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SpotipyNewReleases/static/js/2.314ad267.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "717e6b9a602cb85b57ea",
-    "url": "/SpotipyNewReleases/static/js/main.52316653.chunk.js"
+    "revision": "ce77aa0a4e9766b50145",
+    "url": "/SpotipyNewReleases/static/js/main.9f329111.chunk.js"
   },
   {
     "revision": "cd0d1142637497f784db",
