@@ -49,7 +49,9 @@ function App() {
     const userResponse = await fetch(
       'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
       {
-        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
       },
     )
     const userJson = await userResponse.json()
@@ -61,7 +63,9 @@ function App() {
     const artistsResponse = await fetch(
       'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
       {
-        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
       },
     )
     const artistsJson = await artistsResponse.json()
