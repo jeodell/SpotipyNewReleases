@@ -35,7 +35,7 @@ function App() {
       ? today.getFullYear() - 1
       : today.getFullYear() +
         '-' +
-        ('0' + (today.getMonth() - 2 === 0 ? 12 : today.getMonth())).slice(-2) +
+        ('0' + (today.getMonth() === 0 ? 12 : today.getMonth())).slice(-2) +
         '-' +
         ('0' + today.getDate()).slice(-2)
   const [filterDate, setFilterDate] = useState(currentFilterDate)
