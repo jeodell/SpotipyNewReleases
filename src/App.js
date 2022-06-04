@@ -2,19 +2,13 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Albums from './Albums'
 import './App.css'
 import DateFnsUtils from '@date-io/date-fns/build'
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme,
-} from '@material-ui/core/styles'
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 function App() {
   let today = new Date()
@@ -46,18 +40,16 @@ function App() {
   }, [])
 
   const fetchData = async () => {
-    const userResponse = await fetch(
-      'https://spotipynewreleasesbackend.herokuapp.com/api/get-user',
-    )
+    // const userResponse = await fetch('http://127.0.0.1:5000/api/get-user')
+    const userResponse = await fetch('https://spotipynewreleasesbackend.herokuapp.com/api/get-user')
     const userJson = await userResponse.json()
     // console.log(userJson)
     setUser({
       name: userJson.display_name,
     })
 
-    const artistsResponse = await fetch(
-      'https://spotipynewreleasesbackend.herokuapp.com/api/get-artists',
-    )
+    // const artistsResponse = await fetch('http://127.0.0.1:5000/api/get-artists')
+    const artistsResponse = await fetch('https://spotipynewreleasesbackend.herokuapp.com/api/get-artists')
     const artistsJson = await artistsResponse.json()
     // console.log(artistsJson)
     setArtists((artists) => [
@@ -77,9 +69,7 @@ function App() {
   let artistsToRender =
     user && artists // checks if there is a user that follows at least one artist
       ? artists.filter(
-          (artists) =>
-            artists.name !== '' &&
-            artists.name.toLowerCase().includes(filterString.toLowerCase()),
+          (artists) => artists.name !== '' && artists.name.toLowerCase().includes(filterString.toLowerCase()),
         )
       : []
 
@@ -89,12 +79,17 @@ function App() {
     let year = values[2]
     let day = values[1]
     let month = values[0]
-    let newFilterDate =
-      year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2)
+    let newFilterDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).slice(-2)
     setFilterDate(newFilterDate)
   }
 
   const useStyles = makeStyles((theme) => ({
+    centered: {
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     user: {
       marginTop: '25px',
       marginBottom: '10px',
@@ -170,11 +165,7 @@ function App() {
             <Typography variant='h2' component='h1' className={classes.user}>
               {user.name}'s New Releases
             </Typography>
-            <Typography
-              variant='h3'
-              component='h3'
-              className={classes.followedArtists}
-            >
+            <Typography variant='h3' component='h3' className={classes.followedArtists}>
               {numFollowed} followed artists
             </Typography>
             <TextField
@@ -196,12 +187,8 @@ function App() {
               />
             </MuiPickersUtilsProvider>
             <Grid className={classes.grid}>
-              {artistsToRender.map((artist) => (
-                <Albums
-                  key={artist.name}
-                  artist={artist}
-                  filterDate={filterDate}
-                />
+              {artistsToRender.map((artist, index) => (
+                <Albums key={`${artist.name}${index}`} artist={artist} filterDate={filterDate} />
               ))}
             </Grid>
           </Container>
@@ -213,9 +200,17 @@ function App() {
           </footer>
         </ThemeProvider>
       ) : error ? (
-        <Fragment>Error.</Fragment>
+        <Fragment>
+          <Container className={classes.centered}>
+            <Typography variant='h3'>Error</Typography>
+          </Container>
+        </Fragment>
       ) : (
-        <Fragment>Loading...</Fragment>
+        <Fragment>
+          <Container className={classes.centered}>
+            <CircularProgress size={80} />
+          </Container>
+        </Fragment>
       )}
     </div>
   )
