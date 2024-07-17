@@ -1,14 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import Albums from './Albums'
-import './App.css'
 import DateFnsUtils from '@date-io/date-fns/build'
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import React, { Fragment, useEffect, useState } from 'react'
+import Albums from './Albums'
+import './App.css'
 
 function App() {
   let today = new Date()
@@ -36,34 +36,36 @@ function App() {
   const [error, setError] = useState(false)
 
   useEffect(() => {
+    const fetchData = async () => {
+      // const userResponse = await fetch('http://127.0.0.1:5000/api/get-user')
+      const userResponse = await fetch('https://spotipy-new-releases-backend.vercel.app/api/get-user')
+      // const userResponse = await fetch('https://spotipynewreleasesbackend.herokuapp.com/api/get-user')
+      const userJson = await userResponse.json()
+      // console.log(userJson)
+      setUser({
+        name: userJson.display_name,
+      })
+
+      // const artistsResponse = await fetch('http://127.0.0.1:5000/api/get-artists')
+      const artistsResponse = await fetch('https://spotipy-new-releases-backend.vercel.app/api/get-artists')
+      // const artistsResponse = await fetch('https://spotipynewreleasesbackend.herokuapp.com/api/get-artists')
+      const artistsJson = await artistsResponse.json()
+      // console.log(artistsJson)
+      setArtists((artists) => [
+        ...artists,
+        ...artistsJson.artists.sort((a, b) => {
+          let nameA = a.name.toLowerCase()
+          let nameB = b.name.toLowerCase()
+          if (nameA < nameB) return -1
+          if (nameA > nameB) return 1
+          return 0
+        }),
+      ])
+      setNumFollowed(numFollowed + artistsJson.artists.length)
+    }
+
     fetchData().catch((err) => setError(true))
-  }, [])
-
-  const fetchData = async () => {
-    // const userResponse = await fetch('http://127.0.0.1:5000/api/get-user')
-    const userResponse = await fetch('https://spotipynewreleasesbackend.herokuapp.com/api/get-user')
-    const userJson = await userResponse.json()
-    // console.log(userJson)
-    setUser({
-      name: userJson.display_name,
-    })
-
-    // const artistsResponse = await fetch('http://127.0.0.1:5000/api/get-artists')
-    const artistsResponse = await fetch('https://spotipynewreleasesbackend.herokuapp.com/api/get-artists')
-    const artistsJson = await artistsResponse.json()
-    // console.log(artistsJson)
-    setArtists((artists) => [
-      ...artists,
-      ...artistsJson.artists.sort((a, b) => {
-        let nameA = a.name.toLowerCase()
-        let nameB = b.name.toLowerCase()
-        if (nameA < nameB) return -1
-        if (nameA > nameB) return 1
-        return 0
-      }),
-    ])
-    setNumFollowed(numFollowed + artistsJson.artists.length)
-  }
+  }, [numFollowed])
 
   // array of followed artists
   let artistsToRender =
@@ -158,19 +160,19 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div className="App">
       {numFollowed !== 0 ? (
         <ThemeProvider theme={darkTheme}>
-          <Container maxWidth='xl'>
-            <Typography variant='h2' component='h1' className={classes.user}>
+          <Container maxWidth="xl">
+            <Typography variant="h2" component="h1" className={classes.user}>
               {user.name}'s New Releases
             </Typography>
-            <Typography variant='h3' component='h3' className={classes.followedArtists}>
+            <Typography variant="h3" component="h3" className={classes.followedArtists}>
               {numFollowed} followed artists
             </Typography>
             <TextField
               className={classes.artistFilter}
-              label='Filter by Artist Name'
+              label="Filter by Artist Name"
               onChange={(text) => {
                 setFilterString(text.target.value)
               }}
@@ -179,10 +181,10 @@ function App() {
               <KeyboardDatePicker
                 className={classes.dateFilter}
                 disableFuture
-                label='Filter by Release Date'
+                label="Filter by Release Date"
                 value={filterDate}
                 placeholder={filterDate}
-                format='MM/dd/yyyy'
+                format="MM/dd/yyyy"
                 onChange={(event) => handleDateChange(event)}
               />
             </MuiPickersUtilsProvider>
@@ -193,7 +195,7 @@ function App() {
             </Grid>
           </Container>
           <footer className={classes.footer}>
-            <Typography variant='body2'>
+            <Typography variant="body2">
               {'Copyright © '}
               {new Date().getFullYear()} Jason O'Dell
             </Typography>
@@ -202,7 +204,7 @@ function App() {
       ) : error ? (
         <Fragment>
           <Container className={classes.centered}>
-            <Typography variant='h3'>Error</Typography>
+            <Typography variant="h3">Error</Typography>
           </Container>
         </Fragment>
       ) : (
